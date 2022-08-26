@@ -49,4 +49,6 @@ export const quoteStorage = new PersistentUnorderedMap<string, Quote>("LISTED_QU
 
 export const likeStorage = new PersistentUnorderedMap<string, string[]>("LIKED_USERS");
 
+export const userLikeStorage = new PersistentUnorderedMap<string, string[]>("USER_LIKES");
+
 export const GAS_FEE: u128 = u128.from("100000000000000");
