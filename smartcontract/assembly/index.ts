@@ -73,7 +73,12 @@ export function likeQuote(id: string): void {
     throw new Error("Can't like your own quote");
   }
 
-  if(likeStorage.has(context.sender)){
+  let likedUsers = likeStorage.get(id);
+  if(likedUsers == null){
+      likedUsers = [];
+  }
+
+  if(likedUsers.includes(context.sender)){
       throw new Error("You have already liked the comment")
   }
 
@@ -81,5 +86,7 @@ export function likeQuote(id: string): void {
   quote.incrementLikes();
 
   quoteStorage.set(id, quote);
-  likeStorage.add(context.sender);
+
+  likedUsers.push(context.sender);
+  likeStorage.set(id, likedUsers);
 }

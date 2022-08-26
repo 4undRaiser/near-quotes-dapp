@@ -47,6 +47,6 @@ export class Comment {
 
 export const quoteStorage = new PersistentUnorderedMap<string, Quote>("LISTED_QUOTES");
 
-export const likeStorage = new PersistentSet<string>("LIKED_USERS");
+export const likeStorage = new PersistentUnorderedMap<string, string[]>("LIKED_USERS");
 
 export const GAS_FEE: u128 = u128.from("100000000000000");
