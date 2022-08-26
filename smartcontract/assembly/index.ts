@@ -1,5 +1,5 @@
 import { context, u128, ContractPromiseBatch} from "near-sdk-as";
-import {Quote, quoteStorage, Comment, GAS_FEE, likeStorage, userLikeStorage,} from './model';
+import {Quote, quoteStorage, Comment, GAS_FEE, userLikeStorage,} from './model';
 
 
 
@@ -73,27 +73,19 @@ export function likeQuote(id: string): void {
     throw new Error("Can't like your own quote");
   }
 
-  let likedUsers = likeStorage.get(id);
-  if(likedUsers == null){
-      likedUsers = [];
-  }
-
-  if(likedUsers.includes(context.sender)){
-      throw new Error("You have already liked the comment")
-  }
-
   let userLikes = userLikeStorage.get(context.sender);
   if(userLikes == null){
       userLikes = [];
+  }
+
+  if(userLikes.includes(id)){
+      throw new Error("You have already liked the comment")
   }
 
   ContractPromiseBatch.create(quote.owner).transfer(context.attachedDeposit);
   quote.incrementLikes();
 
   quoteStorage.set(id, quote);
-
-  likedUsers.push(context.sender);
-  likeStorage.set(id, likedUsers);
 
   userLikes.push(id);
   userLikeStorage.set(context.sender,userLikes);
