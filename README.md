@@ -1,4 +1,7 @@
-The app is hosted here: https://tangerine-mermaid-a028d5.netlify.app
+# Demo link
+
+https://sparkling-horse-758297.netlify.app
+
 
 # Description.
 

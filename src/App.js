@@ -42,7 +42,7 @@ const App = function AppWrapper() {
           </main>
         </Container>
       ) : (
-        <Cover name="Near Quotes" login={login} coverImg="https://s2982.pcdn.co/wp-content/uploads/2021/09/bookstore-shelves-hero-image.jpg.optimal.jpg" />
+        <Cover name="Near Quotes" login={login} coverImg="https://parade.com/.image/t_share/MTkwNTc1ODc5NDk1MjMwNTg5/life-quotes-happy.jpg" />
       )}
     </>
   );

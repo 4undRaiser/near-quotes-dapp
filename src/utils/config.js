@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || "nearquotecontract.mysecondtestnet.testnet"; // put here a smart contracts' name
+const CONTRACT_NAME = process.env.CONTRACT_NAME || "nearquote-contract.4undraisertestnet.testnet"; // put here a smart contracts' name
 
 function environment(env) {
   switch (env) {
