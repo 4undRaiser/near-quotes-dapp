@@ -53,7 +53,19 @@ export function addComment(id: string, comment: Comment): void {
 
   quoteStorage.set(id, storedQuote);
 }
-  
+
+
+
+export function changeQuote(id: string, newDescription: string): void {
+  const quote = getQuote(id);
+  if (quote == null) {
+    throw new Error("quote not found");
+  }
+  assert(quote.owner.toString() == context.sender.toString(),"Not owner");
+  assert(newDescription.length > 0,"Description can't be empty");
+  quote.editQuote(newDescription); 
+  quoteStorage.set(quote.id, quote); 
+}
 
 /**
  * Facilitates user liking a quote and supporting the author with any amount

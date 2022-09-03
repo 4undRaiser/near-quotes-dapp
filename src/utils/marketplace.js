@@ -12,6 +12,10 @@ export function addComment(id, comment) {
   return window.contract.addComment({id, comment }, GAS);
 }
 
+export function editQuote(id, newDescription) {
+  return window.contract.changeQuote({id, newDescription }, GAS);
+}
+
 
 export function getQuotess() {
   return window.contract.getQuotes();

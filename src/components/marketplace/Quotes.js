@@ -11,6 +11,7 @@ import {
     likeQuote,
     addComment,
     createQuote,
+    editQuote,
 } from "../../utils/marketplace";
 
 
@@ -63,6 +64,21 @@ const Quotes = () => {
         }
     };
 
+    const changeQuote = async (id, newDescription) => {
+        setLoading(true);
+        try {
+            await editQuote(id, newDescription).then((resp) => {
+                toast(<NotificationSuccess text="Description has beeen edited successfully."/>);
+                getQuotes();
+            });
+        } catch (error) {
+            console.log({error});
+            toast(<NotificationError text="Failed to edit description"/>);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     //  function to initiate transaction
     const like = async (id, ammount) => {
@@ -101,6 +117,7 @@ const Quotes = () => {
                                 }}
                                 likeQuote={like}
                                 saveComment={createComment}
+                                changeQuote={changeQuote}
                                 isOwner={account.accountId === _quote.owner}
                             />
                         ))}

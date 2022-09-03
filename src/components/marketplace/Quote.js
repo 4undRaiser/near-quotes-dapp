@@ -4,11 +4,12 @@ import {utils} from "near-api-js";
 import {Card, Button, Col, Badge, Stack, Form} from "react-bootstrap";
 import {useState} from "react";
 
-const Quote = ({quote, likeQuote, saveComment, isOwner}) => {
+const Quote = ({quote, likeQuote, saveComment, isOwner, changeQuote}) => {
     const {id, description, owner, likes, comments} = quote;
 
     const [ammount, setAmmount] = useState('');
     const [comment, setComment] = useState('');
+    const [newDescription, setnewDescription] = useState('');
 
 
     const triggerLike = () => {
@@ -17,6 +18,11 @@ const Quote = ({quote, likeQuote, saveComment, isOwner}) => {
 
     const triggerCreateComment = () => {
         saveComment(id, {commentDescription: comment});
+
+    };
+
+    const triggerChangeQuote = () => {
+        changeQuote(id, newDescription);
 
     };
 
@@ -58,6 +64,28 @@ const Quote = ({quote, likeQuote, saveComment, isOwner}) => {
                         </>
                     )}
 
+            {isOwner === true && (
+                        <>
+                            <Form.Control
+                                className={"pt-2 mb-1"}
+                                type="text"
+                                placeholder="Enter new Description"
+                                onChange={(e) => {
+                                    setnewDescription(e.target.value);
+                                }}
+                            />
+
+                            <Button
+                                variant="primary"
+                                className={"mb-4"}
+                                onClick={() => triggerChangeQuote()}
+                            >
+                               Submit
+                            </Button>
+                        </>
+                    )}
+
+
                     {isOwner !== true && (
                         <>
                             <Card.Text className="flex-grow-1 ">like this quote by sending some near to the
@@ -87,13 +115,15 @@ const Quote = ({quote, likeQuote, saveComment, isOwner}) => {
                     )}
 
 
-                    <Card.Text className="flex-grow-1 ">COMMENTS</Card.Text>
+                    <Card.Text className="flex-grow-1 "> <h3>COMMENTS</h3></Card.Text>
+                            <hr className="solid"></hr>
 
                     {comments.map((com) => (
-                        <Card.Text className="text-secondary">
-                            comment: {com.commentDescription} <br/>
-                            author: {com.owner}
+                        <Card.Text className="flex-grow-1">
+                           description: <h4>{com.commentDescription}</h4>  <br/>
+                            <hr className="solid"></hr>
                         </Card.Text>
+                        
                     ))
                     }
 
@@ -108,6 +138,7 @@ Quote.propTypes = {
     quote: PropTypes.instanceOf(Object).isRequired,
     likeQuote: PropTypes.func.isRequired,
     saveComment: PropTypes.func.isRequired,
+    changeQuote: PropTypes.func.isRequired,
 };
 
 export default Quote;

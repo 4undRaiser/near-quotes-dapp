@@ -26,6 +26,11 @@ export class Quote {
     public addComment(comment: Comment): void {
         this.comments.push(comment);
     }
+
+    public editQuote(newDescription: string): void {
+        this.description = newDescription;
+
+    }
 }
 
 
