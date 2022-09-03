@@ -1,4 +1,4 @@
-import { PersistentUnorderedMap, context, PersistentMap, u128 } from "near-sdk-as";
+import { PersistentUnorderedMap, context, PersistentSet, u128 } from "near-sdk-as";
 
 
 @nearBindgen
@@ -15,15 +15,17 @@ export class Quote {
         quote.description = payload.description;
         quote.owner = context.sender;
         quote.comments = [];
+        quote.likes = 0;
         return quote;
     }
 
     public incrementLikes(): void {
-        this.likes = this.likes + 1;
+        this.likes++;
     }
 
-   
-    
+    public addComment(comment: Comment): void {
+        this.comments.push(comment);
+    }
 }
 
 
@@ -39,11 +41,12 @@ export class Comment {
         comment.owner = context.sender;
         return comment;
     }
-
-    
 }
 
 
 
 export const quoteStorage = new PersistentUnorderedMap<string, Quote>("LISTED_QUOTES");
-//export const commentStorage = new PersistentUnorderedMap<string, Array<Comment>>("COMMENTS");
+
+export const userLikeStorage = new PersistentUnorderedMap<string, string[]>("USER_LIKES");
+
+export const GAS_FEE: u128 = u128.from("100000000000000");
